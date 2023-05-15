@@ -8,6 +8,7 @@ const PricesProvider = ({ children }) => {
   const [prodCost, setProdCost] = useState(0);
   const [prodPrice, setProdPrice] = useState(0);
   const [isValid, setIsValid] = useState(false);
+  const [newProdPrice, setNewProdPrice] = useState(0);
 
   const contextValue = {
     prodId,
@@ -20,6 +21,8 @@ const PricesProvider = ({ children }) => {
     setProdPrice,
     isValid,
     setIsValid,
+    newProdPrice,
+    setNewProdPrice,
   };
 
   return (

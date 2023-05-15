@@ -11,14 +11,16 @@ function Form() {
     prodCost,
     setProdCost,
     prodPrice,
-    setProdPrice,
+    // setProdPrice,
     isValid,
     setIsValid,
+    newProdPrice,
+    setNewProdPrice,
   } = useContext(PricesContext);
 
   const runValidations = () => {
-    const financialValidation = validations.financial(prodCost, prodPrice);
-    const marketingValidation = validations.marketing(prodPrice, prodPrice);
+    const financialValidation = validations.financial(prodCost, newProdPrice);
+    const marketingValidation = validations.marketing(prodPrice, newProdPrice);
     if (financialValidation.status && marketingValidation.status) {
       setIsValid(true);
     } else {
@@ -60,8 +62,9 @@ function Form() {
         type="number"
         id="prodPrice"
         name="prodPrice"
-        value={prodPrice}
-        onChange={(e) => setProdPrice(e.target.value)}
+        placeholder={prodPrice}
+        value={newProdPrice}
+        onChange={(e) => setNewProdPrice(e.target.value)}
       />
       <button
         type="button"
