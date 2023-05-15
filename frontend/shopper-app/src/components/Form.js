@@ -1,24 +1,82 @@
-// import { useContext} from "react";
-// import PricesContext from "../context/PricesContext";
+import { useContext} from "react";
+import PricesContext from "../context/PricesContext";
+import validations from "../helpers/validations";
 
 function Form() {
+  const {
+    prodId,
+    setProdId,
+    prodName,
+    setProdName,
+    prodCost,
+    setProdCost,
+    prodPrice,
+    setProdPrice,
+    isValid,
+    setIsValid,
+  } = useContext(PricesContext);
+
+  const runValidations = () => {
+    const financialValidation = validations.financial(prodCost, prodPrice);
+    const marketingValidation = validations.marketing(prodPrice, prodPrice);
+    if (financialValidation.status && marketingValidation.status) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+  };
+
   return (
     <div className="Form">
       <h2>Form</h2>
-      <label htmlFor="prodId">Product ID</label>
-      <input type="text" id="prodId" name="prodId" />
+      <label htmlFor="prodId">
+        Product ID
+      <input
+        type="text"
+        id="prodId"
+        name="prodId"
+        value={prodId}
+        onChange={(e) => setProdId(e.target.value)}
+      />
+      </label>
       <label htmlFor="prodName">Product Name</label>
-      <input type="text" id="prodName" name="prodName" />
+      <input
+        type="text"
+        id="prodName"
+        name="prodName"
+        value={prodName}
+        onChange={(e) => setProdName(e.target.value)}
+      />
       <label htmlFor="prodCost">Product Cost</label>
-      <input type="text" id="prodCost" name="prodCost" />
+      <input
+        type="number"
+        id="prodCost"
+        name="prodCost"
+        value={prodCost}
+        onChange={(e) => setProdCost(e.target.value)}
+      />
       <label htmlFor="prodPrice">Product Price</label>
-      <input type="text" id="prodPrice" name="prodPrice" />
+      <input
+        type="number"
+        id="prodPrice"
+        name="prodPrice"
+        value={prodPrice}
+        onChange={(e) => setProdPrice(e.target.value)}
+      />
       <button
         type="button"
-        onClick={() => console.log('Validar')}
+        onClick={() => runValidations()}
         >
-          Validar
+          VALIDAR
         </button>
+        {isValid &&
+          <button
+            type="button"
+            onClick={() => console.log('Atualizado com sucesso')}
+          >
+            ATUALIZAR
+          </button>
+        }
     </div>
   );
 }
